@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block navbar %}
+{% include "navbar.html" %}
+{% endblock %}
+{% block content %}
+<div class="container-fluid mb-4">
+    <div class="row mt-4 d-flex justify-content-center">
+        <div class="col align-self-start p-4">
+            <div class="card-body">
+              <h2 class="card-title">{{ ctf_name }}</h2>
+              {% if ctf_edition %}<h6 class="card-subtitle mb-2 text-muted">{{ ctf_edition }}</h6>{% endif %}
+              <p class="card-text">{{ ctf_description }}</p>
+              <ul style="list-style: none;">
+                {% if ctf_link_one %}<li><a href="{{ ctf_link_one_href }}" target="_blank" class="card-link">{{ ctf_link_one }}</a></li>{% endif %}
+                {% if ctf_link_two %}<li><a href="{{ ctf_link_two_href }}" target="_blank" class="card-link">{{ ctf_link_two }}</a></li>{% endif %}
+              </ul>
+            </div>
+        </div>
+    </div>
+    {% if custom_title and custom_description %}
+    <div class="row mt-4 d-flex justify-content-center">
+        <div class="card" style="text-align: center;">
+            <div class="card-body">
+                <h3 class="card-title">{{ custom_title }}</h3>
+                <p class="card-text">{{ custom_description }}</p>
+                {% if custom_btn %}<a href="{{ custom_btn_href }}" target="_blank" class="btn btn-lg btn-primary">{{ custom_btn }}</a>{% endif %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% if discord_group_link or telegram_group_link %}
+    <div class="row mt-4 d-flex justify-content-center">
+        <div class="card" style="text-align: center;">
+            <div class="card-body">
+                <h3 class="card-title">Stay updated during the event!</h3>
+                <h6 class="card-subtitle mb-2 text-muted">Join us in...</h6>
+                <p class="card-text">{{ before_start_description }}</p>
+                {% if discord_group_link %}<a href="{{ discord_group_link }}" target="_blank" class="m-2"><img height="42" src="{{ url_for('static', filename='svg/discord-mark.svg') }}"></a>{% endif %}
+                {% if telegram_group_link  %}<a href="{{ telegram_group_link }}" target="_blank" class="m-2"><img height="42" src="{{ url_for('static', filename='svg/telegram.svg') }}"></a>{% endif %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% if has_sponsors %}
+    <div class="row mt-4 p-4 justify-content-center">
+        <h3 class="card-title mb-4">¶ Sponsors</h3>
+        {% for sponsor in sponsors %}
+            <div class="sponsor-container col-2 bg-white m-2 p-2 align-items-center rounded">
+                <img src="{{ url_for('serve_sponsor_img', filename=sponsor) }}"  style="color:transparent">
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+</div>
+{% endblock %}

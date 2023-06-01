@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+{% include "navbar.html" %}
+{% endblock %}
+
+{% block go_back %}
+{% include "go_back_button.html" %}
+{% endblock %}
+
+{% block page_title %}
+{% include "page_title.html" %}
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="row d-flex justify-content-center">
+        {% if 'user' in request.url %}
+            {% include "management/user_create.html" %}
+            {% include "management/user_mng.html" %}
+            {% include "management/user_remove.html" %}
+        {% endif %}
+        {% if 'team' in request.url %}
+            {% include "management/team_create.html" %}
+            {% include "management/team_mng.html" %}
+            {% include "management/team_remove.html" %}
+        {% endif %}
+        {% if 'challenge' in request.url %}
+            {% include "management/challenge_create.html" %}
+            {% include "management/challenge_mng.html" %}
+            {% include "management/challenge_remove.html" %}
+        {% endif %}
+        {% if 'ctf' in request.url %}
+            {% include "management/ctf_mng.html" %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

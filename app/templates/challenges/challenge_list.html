@@ -1,0 +1,69 @@
+{% if not 'team' in request.path %}
+<div class="container-fluid">
+    <div class="row mt-4">
+        <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-sm-12">
+            <h5>User statistics</h5>
+        </div>
+    </div>
+</div>
+<div class="row d-flex justify-content-center">
+    {% if not user_has_solves %}
+        <div class="d-flex align-items-center square">
+            <div class="card card-body m-2 col-sm-12 border-dark text-center">
+                <h4>No challenges solved</h4>
+            </div>
+        </div>
+    {% else %}
+        {% for category, user_solve in user_solves.items() %}
+        {% set border_style = "border-success" if ((user_solve|int > (user_average[category]|int) and user_solve|int > 0) or (user_solve|int == category_challenges[category]|int)) else "border-danger" if (user_solve|int >= 0 and user_solve|int < (user_average[category]|int)) else "border-dark" if (user_solve|int == (user_average[category]|int)) else "border-warning" %}
+            <div class="d-flex card m-3 align-items-center square border {{ border_style }}" style="max-width: 15rem;">
+                <div class="card-header">Challenges solved in average: {{ user_average[category]|int }}</div>
+                <div class="card-body m-1 col-sm-12 text-center" onclick="window.location.href='/challenges'" style="cursor: pointer;">
+                    <h3 class="card-title" style="font-weight: 800;">{{ category.upper() }}</h3>
+                    <h5 class="mt-1">{{ user_solve }}/{{ category_challenges[category]|int }}</h5>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+{% endif %}
+{% if has_team %}
+{% if not 'team' in request.path %}
+<hr class="mt-4" style="width: 80%; margin-left: 10%; margin-right: 10%;">
+<div class="container-fluid">
+    <div class="row mt-4">
+        <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-sm-12">
+            <h5><a href="{{ url_for('team.team_profile', team=teamname) }}" style="text-decoration: inherit; color: inherit;">Team statistics - {{ teamname }}</a></h5>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="container-fluid">
+    <div class="row mt-4">
+        <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-sm-12">
+            <h5>Statistics</h5>
+        </div>
+    </div>
+</div>
+{% endif %}
+<div class="row d-flex justify-content-center">
+    {% if not team_solves %}
+        <div class="d-flex align-items-center square">
+            <div class="card card-body m-2 col-sm-12 border-dark text-center">
+                <h4>No challenges solved</h4>
+            </div>
+        </div>
+    {% else %}
+        {% for category, team_solve in team_solves.items() %}
+        {% set border_style = "border-success" if ((team_solve|int > (team_average[category]|int) and team_solve|int > 0) or (team_solve|int == category_challenges[category]|int)) else "border-danger" if (team_solve|int >= 0 and team_solve|int < (team_average[category]|int)) else "border-dark" if (team_solve|int == (team_average[category]|int)) else "border-warning" %}
+        <div class="d-flex card m-3 align-items-center square border {{ border_style }}" style="max-width: 15rem;">
+                <div class="card-header">Challenges solved in average: {{ team_average[category]|int }}</div>
+                <div class="card-body m-1 col-sm-12 text-center" onclick="window.location.href='/challenges'" style="cursor: pointer;">
+                    <h3 class="card-title" style="font-weight: 800;">{{ category.upper() }}</h3>
+                    <h5 class="mt-1">{{ team_solve }}/{{ category_challenges[category]|int }}</h5>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+{% endif %}

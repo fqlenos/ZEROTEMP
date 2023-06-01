@@ -1,0 +1,51 @@
+<div class="col-sm-12 col-md-3">
+    <div class="card m-2">
+        <h5 class="card-header">{{ points }} points{% if zeroadmin and is_hidden %}<span class="float-right text-info">IS HIDDEN</span>{% endif %}{% if solved %}<span class="float-right text-success">SOLVED</span>{% endif %}</h5>
+        {% if description %}
+        <div class="card-body border-secondary">
+            {% autoescape false %}
+                <p class="card-text">{{ description| replace("\n", "<br/>") }}</p>
+            {% endautoescape %}
+        </div>
+        {% endif %}
+        {% if url %}
+        <div class="card-body border-secondary">
+            <a href="{{ url }}" target="_blank">Link to the Challenge</a>
+        </div>
+        {% endif %}
+        {% if file %}
+        <div class="card-body border-secondary">
+            <a href="{{ url_for('serve_challenge_file', filename=file) }}">Download Documents</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+<div class="col-sm-12 col-md-3">
+    <div class="card border-light m-2">
+        {% if solvers|count == 1 %}<a href="{{ url_for('user.user_profile', username=solvers[0].username) }}" style="text-decoration: none; color: inherit;">{% endif %}
+            <div class="card-header">{% if solvers|count == 1 %}Just solved by{% else %}Solved by{% endif %}</div>
+            <div class="card-body">
+                {% if solvers|count == 1 %}
+                <h3 class="card-body align-items-center d-flex justify-content-center">{{ solvers[0].username }}</h3>
+                {% else %}
+                <h3 class="card-body align-items-center d-flex justify-content-center">{{ solvers|count }} users</h3>
+                {% endif %}
+            </div>
+        {% if solvers|count == 1 %}</a>{% endif %}
+    </div>
+    {% if not solved and not zeroadmin and not user_is_banned %}
+        <div class="form-group m-2">
+            <form method="POST" autocomplete="on">
+                {{ form.csrf_token }}
+                <div class="form-floating mt-3">
+                    {{ form.flag }}
+                    <label>{{ form.flag.label }}</label>
+                </div>
+                <div class="d-grid gap-1">    
+                    <button class="btn btn-block btn-primary mt-2" type="submit">Submit Flag</button>  
+                </div>
+                <span class="text-danger">{{ error }}</span>
+            </form>
+        </div>
+    {% endif %}
+</div>

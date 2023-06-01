@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+{% include "navbar.html" %}
+{% endblock %}
+
+{% block page_title %}
+{% include "page_title.html" %}
+{% endblock %}
+
+{% block content %}
+{% if not zeroadmin %}
+<div class="container-fluid mt-4">
+    <div class="row d-flex justify-content-center">
+        {% include "charts/position_cards.html" %}
+    </div>
+</div>
+
+<div class="container-fluid mt-4">
+    <div class="row d-flex justify-content-center">
+        {% include "challenges/challenge_list.html" %}
+    </div>
+</div>
+{% else %}
+<div class="container-fluid mt-4">
+    <div class="row d-flex justify-content-center">
+        <div class="col-sm-12 col-md-6">
+            <div class="row p-3 d-flex justify-content-center">
+                <div class="card" style="text-align: center;">
+                    <div class="card-body">
+                        <h5 class="card-title text-danger">WARNING!</h5>
+                        <p class="card-text">You have logged in with the ZeroAdmin rights, which are <span class="text-danger">the highest</span> possible permissions on the platform. <br><br>Please be careful with the actions you take, as <span class="text-danger">they cannot be undone.</span></p>
+                    </div>
+                </div>
+            </div>
+            {% include "admin/index.html" %}
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

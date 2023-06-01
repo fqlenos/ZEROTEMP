@@ -1,0 +1,121 @@
+<div class="col-sm-12 col-md-5 p-2">
+    <div class="card p-4">
+        <div class="form-group">
+            <form method="POST">
+                {{ form_mng.csrf_token }}
+                <input type="hidden" name="form_name" value="mng">
+                <legend>General Information</legend>
+                <div class="row form-group mt-3">
+                    <div class="col-8">
+                        <label class="col-form-label">{{ form_mng.ctf_name.label }}</label>
+                        {{ form_mng.ctf_name }}
+                    </div>
+                    <div class="col-4">
+                        <label class="col-form-label">{{ form_mng.ctf_editon.label }}</label>
+                        {{ form_mng.ctf_editon }}
+                    </div>
+                </div>                
+                <div class="form-group mt-3">
+                    <label class="col-form-label">{{ form_mng.ctf_description.label }}</label>
+                    {{ form_mng.ctf_description }}
+                </div>
+                <div class="row form-group mt-3">
+                    <div class="col-4">
+                        <label class="col-form-label">{{ form_mng.ctf_link_one.label }}</label>
+                        {{ form_mng.ctf_link_one }}
+                    </div>
+                    <div class="col-8">
+                        <label class="col-form-label">{{ form_mng.ctf_link_one_href.label }}</label>
+                        {{ form_mng.ctf_link_one_href }}
+                    </div>
+                </div>
+                <div class="row form-group mt-3">
+                    <div class="col-4">
+                        <label class="col-form-label">{{ form_mng.ctf_link_two_href.label }}</label>
+                        {{ form_mng.ctf_link_two_href }}
+                    </div>
+                    <div class="col-8">
+                        <label class="col-form-label">{{ form_mng.ctf_link_two.label }}</label>
+                        {{ form_mng.ctf_link_two }}
+                    </div>
+                </div>
+                <div class="form-check form-switch mt-3">
+                    {{ form_mng.ctf_active }}
+                    <label class="form-check-label">{{ form_mng.ctf_active.label }}</label>
+                </div>
+                <div class="form-floating mt-3">
+                    {{ form_mng.mng_password }}
+                    <label for="floatingMngPass">{{ form_mng.mng_password.label }}</label>
+                </div>
+                <div class="d-grid gap-1 mt-3 mb-3">
+                    <button type="submit" class="btn btn-block btn-lg btn-primary" id="btn-landing">Update CTF Information</button>
+                </div>
+                <span class="text-danger"><i>{{ error_mng }}</i></span>
+                <span class="text-success"><i>{{ success_mng }}</i></span>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-12 col-md-5 p-2">
+    <div class="card p-4">
+        <div class="form-group">
+            <form method="POST" enctype="multipart/form-data">
+                {{ form_social.csrf_token }}
+                <input type="hidden" name="form_name" value="social">
+                <legend>Social and Custom Message</legend>
+                <div class="row form-group mt-3">
+                    <div class="col-6">
+                        <label class="col-form-label">{{ form_social.telegram_group_link.label }}</label>
+                        {{ form_social.telegram_group_link }}
+                    </div>
+                    <div class="col-6">
+                        <label class="col-form-label">{{ form_social.discord_group_link.label }}</label>
+                        {{ form_social.discord_group_link }}
+                    </div>
+                </div>
+                <div class="form-group mt-3">
+                    <label class="col-form-label">{{ form_social.ctf_custom_title.label }}</label>
+                    {{ form_social.ctf_custom_title }}
+                </div>
+                <div class="form-group mt-3">
+                    <label class="col-form-label">{{ form_social.ctf_custom_description.label }}</label>
+                    {{ form_social.ctf_custom_description }}
+                </div>
+                <div class="row form-group mt-3">
+                    <div class="col-4">
+                        <label class="col-form-label">{{ form_social.ctf_custom_link.label }}</label>
+                        {{ form_social.ctf_custom_link }}
+                    </div>
+                    <div class="col-8">
+                        <label class="col-form-label">{{ form_social.ctf_custom_link_href.label }}</label>
+                        {{ form_social.ctf_custom_link_href }}
+                    </div>
+                </div>
+                {% if has_sponsors %}<legend class="mt-3">List of current sponsors</legend>       
+                {% for sponsor in form_social.custom_ctfs %}
+                <div class="form-group mt-3">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="id_{{ sponsor }}" checked>
+                        <label class="form-check-label" for="id_{{ sponsor }}">{{ sponsor }}</label>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}  
+                <div class="form-group mt-3">
+                    {{ form_social.ctf_sponsors.label }}
+                    {{ form_social.ctf_sponsors }}
+                </div>
+                <div class="form-floating mt-3">
+                    {{ form_social.social_password }}
+                    {{ form_social.social_password.label }}
+                </div>
+                <div class="d-grid gap-1 mt-3 mb-3">
+                    <button type="submit" class="btn btn-block btn-lg btn-primary" id="btn-social">Manage Social Information</button>
+                </div>
+                <span class="text-danger"><i>{{ error_social }}</i></span>
+                <span class="text-success"><i>{{ success_social }}</i></span>
+            </form>
+        </div>
+    </div>
+</div>

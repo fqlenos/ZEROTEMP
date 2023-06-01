@@ -1,0 +1,136 @@
+<table class="border border-round border-dark table table-light table-striped table-hover tab-content" id="challengesTabContent">
+    <thead>
+        <tr>
+            <th data-sort="name">NAME</th>
+            <th data-sort="category">CATEGORY</th>
+            <th data-sort="points">POINTS</th>
+            <th data-sort="solves">SOLVES</th>
+            {% if not zeroadmin %}
+            <th data-sort="completed">COMPLETED</th>
+            {% else %}
+            <th data-sort="hidden">HIDDEN</th>
+            {% endif %}
+        </tr>
+    </thead>
+    {% for category in categories %}
+        <tbody class="challenge-tbody tab-pane fade {% if loop.index == 1 %}show active{% endif %}" id="challenge_{{ category.lower() }}" role="tabpanel">
+        {% for challenge in challenges %}
+            {% if challenge.category == category %}
+                {% set solve = solves[challenge.name] %}
+                {% set solved_by = solvers[challenge.name][0] %}
+                {% if zeroadmin %}
+                    <tr class="{% if challenge.challenge_is_hidden %}table-info{% endif %}" data-target="#challenge_{{ challenge.id }}">
+                        <td>{{ challenge.name }}</td>
+                        <td>{{ challenge.category.upper() }}</td>
+                        <td>{{ challenge.value }}</td>
+                        <td>{{ solve }}</td>
+                        <td>{{ challenge.challenge_is_hidden }}</td>
+                    </tr>
+                {% elif not challenge.challenge_is_hidden %}
+                    <tr class="{% if solved_by %}table-success{% endif %}" data-target="#challenge_{{ challenge.id }}">
+                        <td>{{ challenge.name }}</td>
+                        <td>{{ challenge.category.upper() }}</td>
+                        <td>{{ challenge.value }}</td>
+                        <td>{{ solve }}</td>
+                        {% if team %}
+                            <td>{{ solved_by }}</td>
+                        {% elif solved_by%}
+                            <td>True</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+                    </tr>
+                {% endif %}
+                    <tr class="description-row table-secondary" style="cursor: pointer" id="challenge_{{ challenge.id }}">
+                        <td colspan="3" class="p-4" style="word-wrap: break-word;">
+                            {% autoescape false %}
+                                <p>{{ challenge.description| replace("\n", "<br/>") }}</p>
+                            {% endautoescape %}
+                        </td>
+                        {% if not zeroadmin %}
+                            {% if not solved_by %}
+                                <td colspan="2" class="p-4" style="word-wrap: break-word;"></td>
+                            {% else %}
+                                {% if team %}
+                                    <td colspan="2" class="p-4" style="word-wrap: break-word;">Solved by {{solved_by}}</td>
+                                {% else %}
+                                    <td colspan="2" class="p-4" style="word-wrap: break-word;"></td>
+                                {% endif %}
+                            {% endif %}
+                        {% else %}
+                        <td colspan="2"></td>
+                        {% endif %}
+                    </tr>
+            {% endif %}
+        {% endfor %}
+        </tbody>
+    {% endfor %}
+
+    <tbody class="tab-pane fade" id="challenge_total" role="tabpanel">
+    {% for challenge in challenges %}
+        {% if zeroadmin%}
+            <tr class="{% if challenge.challenge_is_hidden %}table-info{% endif %}" data-target="#challenge_total_{{ challenge.id }}">
+                <td>{{ challenge.name }}</td>
+                <td>{{ challenge.category.upper() }}</td>
+                <td>{{ challenge.value }}</td>
+                <td>{{ solves[challenge.name] }}</td>
+                <td>{{ challenge.challenge_is_hidden }}</td>
+            </tr>
+        {% elif not challenge.challenge_is_hidden %}
+            {% set solve = solves[challenge.name] %}
+            {% set solved_by = solvers[challenge.name][0] %}
+            <tr class="{% if solved_by %}table-success{% endif %}" data-target="#challenge_total_{{ challenge.id }}">
+                <td>{{ challenge.name }}</td>
+                <td>{{ challenge.category.upper() }}</td>
+                <td>{{ challenge.value }}</td>
+                <td>{{ solve }}</td>
+                <td>{{ solved_by }}</td>
+            </tr>
+        {% endif %}
+            <tr class="description-row table-secondary" style="cursor: pointer" id="challenge_total_{{ challenge.id }}">
+                <td colspan="3" class="p-4" style="word-wrap: break-word;">
+                    {% autoescape false %}
+                        <p>{{ challenge.description| replace("\n", "<br/>") }}</p>
+                    {% endautoescape %}
+                </td>
+                {% if not zeroadmin %}
+                    {% if not solved_by %}
+                        <td colspan="2" class="p-4" style="word-wrap: break-word;"></td>
+                    {% else %}
+                        {% if team %}
+                            <td colspan="2" class="p-4" style="word-wrap: break-word;">Solved by {{solved_by}}</td>
+                        {% else %}
+                            <td colspan="2" class="p-4" style="word-wrap: break-word;"></td>
+                        {% endif %}
+                    {% endif %}
+                {% else %}
+                <td colspan="2"></td>
+                {% endif %}
+            </tr>
+    {% endfor %}
+</table>
+
+<script>
+
+    const tableRows = document.querySelectorAll('.challenge-tbody tr.description-row');
+    tableRows.forEach(row => {
+        let challengename = row.previousElementSibling.querySelector('td:nth-child(1)').textContent.trim()
+        let url = "{{ url_for('challenge.challenge', challengename='__CHALLENGENAME__') }}".replace('__CHALLENGENAME__', encodeURIComponent(challengename));
+        row.querySelectorAll('td:first-child').forEach(col => {
+            col.addEventListener('click', () => {
+                window.location.href = url;
+            });
+        });
+    });
+    
+    const tableRowsTotal = document.querySelectorAll('#challenge_total tr.description-row');
+    tableRowsTotal.forEach(row => {
+        let challengename = row.previousElementSibling.querySelector('td').textContent.trim();
+        let url = "{{ url_for('challenge.challenge', challengename='__CHALLENGENAME__') }}".replace('__CHALLENGENAME__', encodeURIComponent(challengename));
+        row.querySelectorAll('td:first-child').forEach(col => {
+            col.addEventListener('click', () => {
+                window.location.href = url;
+            });
+        });
+    });
+</script>

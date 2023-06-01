@@ -1,0 +1,24 @@
+<div class="col-sm-12 col-md-3 p-2">
+    <div class="card p-4">
+        <div class="form-group">
+            <legend>Purge user</legend>
+            <form method="POST" autocomplete="on">
+                {{ form_remove.csrf_token }}
+                <input type="hidden" name="form_name" value="remove">
+                <div class="form-group">
+                    {{ form_remove.user_select.label }}
+                    {{ form_remove.user_select }}
+                </div>
+                <div class="form-floating mt-3">
+                    {{ form_remove.remove_password }}
+                    <label>{{ form_remove.remove_password.label }}</label>
+                </div>
+                <div class="d-grid gap-1 mt-3 mb-3">
+                    <button type="submit" class="btn btn-block btn-lg btn-danger" id="btn-remove">Remove user</button>
+                </div>
+                <span class="text-danger"><i>{{ error_remove }}</i></span>
+                <span class="text-success"><i>{{ success_remove }}</i></span>
+            </form>
+        </div>
+    </div>
+</div>

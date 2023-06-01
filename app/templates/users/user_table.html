@@ -1,0 +1,108 @@
+<div class="form-group col-sm-10 offset-sm-1">
+    <input type="text" class="form-control" id="filter" placeholder="Search...">
+</div>
+
+<table class="border border-round border-dark table table-light table-striped table-hover">
+    <thead style="cursor: pointer;">
+        <tr>
+            <th data-sort="position">POS</th>
+            <th data-sort="name">USERNAME</th>
+            <th data-sort="team">TEAM NAME</th>
+            <th data-sort="points">SCORE</th>
+            {% if zeroadmin %}
+            <th data-sort="hidden">HIDDEN</th>
+            <th data-sort="active">ACTIVE</th>
+            <th data-sort="admin">ADMIN</th>
+            <th data-sort="banned">BANNED</th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody id="table-body">
+        {% for user in users %}
+            {% if user.user_is_active and not user.user_is_hidden and not zeroadmin %}
+                <tr class="table-light">
+                    {% if positions[user.username] != 1 and not user.user_is_banned %}
+                    <td>{{ positions[user.username] }}</td>
+                    {% elif not user.user_is_banned %}
+                    <td><img src="{{ url_for('static', filename='svg/trophy-fill.svg') }}"></td>
+                    {% else %}
+                    <td><img src="{{ url_for('static', filename='svg/ban.svg') }}"></td>
+                    {% endif %}
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.team.teamname if user.team is not none else '' }}</td>
+                    <td>{{ user.score }}</td>
+                </tr>
+            {% elif zeroadmin %}
+                <tr class="{% if user.user_is_hidden or not user.user_is_active or user.user_is_admin or user.user_is_banned %}table-info{% else %}table-light{% endif %}">
+                    {% if positions[user.username] != 1 and not user.user_is_banned %}
+                    <td>{{ positions[user.username] }}</td>
+                    {% elif not user.user_is_banned %}
+                    <td><img src="{{ url_for('static', filename='svg/trophy-fill.svg') }}"></td>
+                    {% else %}
+                    <td><img src="{{ url_for('static', filename='svg/ban.svg') }}"></td>
+                    {% endif %}
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.team.teamname if user.team is not none else '' }}</td>
+                    <td>{{ user.score }}</td>
+                    <td>{{ user.user_is_hidden }}</td>
+                    <td>{{ user.user_is_active }}</td>
+                    <td>{{ user.user_is_admin }}</td>
+                    <td>{{ user.user_is_banned }}</td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+    const tableRows = document.querySelectorAll('#table-body tr');
+    tableRows.forEach(row => {
+        let username = row.querySelector('td:nth-child(2)').textContent.trim();
+        let url = "{{ url_for('user.user_profile', username='__USERNAME__') }}".replace('__USERNAME__', encodeURIComponent(username));
+        row.querySelectorAll('td:nth-child(-n+4)').forEach(col => {
+            col.addEventListener('click', () => {
+                window.location.href = url;
+            });
+        });
+    });
+
+    const tableHeaders = document.querySelectorAll('th[data-sort]');
+    tableHeaders.forEach(header => {
+        header.addEventListener('click', () => {
+            const sortKey = header.getAttribute('data-sort');
+            const sortDirection = header.classList.contains('sort-asc') ? -1 : 1;
+            const newClassName = sortDirection === 1 ? 'sort-asc' : 'sort-desc';
+            tableHeaders.forEach(header => header.classList.remove('sort-asc', 'sort-desc'));
+            header.classList.add(newClassName);
+            const sortedRows = Array.from(tableRows).sort((a, b) => {
+                const aVal = a.querySelector(`td:nth-child(${getSortIndex(sortKey)})`).textContent.trim();
+                const bVal = b.querySelector(`td:nth-child(${getSortIndex(sortKey)})`).textContent.trim();
+                return sortDirection * (aVal.localeCompare(bVal, undefined, {numeric: true, sensitivity: 'base'}));
+            });
+            sortedRows.forEach(row => row.parentNode.appendChild(row));
+        });
+    });
+
+    function getSortIndex(sortKey) {
+        switch (sortKey) {
+            case 'position':
+                return 1;
+            case 'name':
+                return 2;
+            case 'team':
+                return 3;
+            case 'points':
+                return 4;
+            case 'hidden':
+                return 5;
+            case 'active':
+                return 6;
+            case 'admin':
+                return 7;
+            case 'banned':
+                return 8;
+            default:
+                return 1;
+        }
+    }
+</script>

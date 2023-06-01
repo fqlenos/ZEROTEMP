@@ -1,0 +1,61 @@
+<div class="col-sm-12 col-md-6 p-2">
+    <div class="card p-4">
+        <div class="form-group">
+            <legend>Challenge data</legend>
+            <form method="POST" enctype="multipart/form-data">
+                {{ form_mng.csrf_token }}
+                <input type="hidden" name="form_name" value="mng">
+                <div class="form-floating mt-3">
+                    {{ form_mng.challengename }}
+                    <label>{{ form_mng.challengename.label }}</label>
+                </div>
+                <div class="form-floating mt-3">
+                    {{ form_mng.description }}
+                    <label>{{ form_mng.description.label }}</label>
+                </div>
+                <div class="form-floating mt-3">
+                    {{ form_mng.category }}
+                    <label>{{ form_mng.category.label }}</label>
+                </div>
+                <div class="form-floating mt-3">
+                    {{ form_mng.flag }}
+                    <label>{{ form_mng.flag.label }}</label>
+                </div>
+                <div class="form-floating mt-3">
+                    {{ form_mng.url }}
+                    <label>{{ form_mng.url.label }}</label>
+                </div>
+                <div class="form-group mt-3">
+                    {{ form_mng.file.label }}
+                    {{ form_mng.file }}
+                </div>
+                <div class="form-check form-switch mt-3">
+                    {{ form_mng.challenge_is_hidden }}
+                    <label class="form-check-label">{{ form_mng.challenge_is_hidden.label }}</label>
+                </div>
+                <div class="form-check form-switch mt-3">
+                    {{ form_mng.is_multiflag }}
+                    <label class="form-check-label">{{ form_mng.is_multiflag.label }}</label>
+                </div>
+                <div class="form-floating mt-3">
+                    {{ form_mng.mng_password }}
+                    <label>{{ form_mng.mng_password.label }}</label>
+                </div>
+                <div class="d-grid gap-1 mt-3 mb-3">
+                    <button type="submit" class="btn btn-block btn-lg btn-primary" id="btn-personal">Edit challenge</button>
+                </div>
+                <span class="text-danger"><i>{{ error_mng }}</i></span>
+                <span class="text-success"><i>{{ success_mng }}</i></span>
+            </form>
+        </div>
+    </div>
+</div>
+
+<figure class="col-md-8 col-sm-12 text-center mt-4">
+<blockquote class="blockquote">
+    <p class="mb-0"><i>All the information posted in these forms will be presented in the challenge.</i></p>
+</blockquote>
+<figcaption class="blockquote-footer">
+    <cite title="Source Title">The flag will never be posted</cite>
+</figcaption>
+</figure>

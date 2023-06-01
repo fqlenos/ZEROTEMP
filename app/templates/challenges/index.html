@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+{% include "navbar.html" %}
+{% endblock %}
+
+{% block page_title %}
+{% include "page_title.html" %}
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row mt-4">
+        <div class="col-xl-8 offset-xl-2 col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-sm-12">
+            <ul class="nav nav-tabs" role="tablist">
+                {% for category in categories %}
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link {% if loop.index == 1 %}active{% endif %}" data-bs-toggle="tab" href="#challenge_{{ category.lower() }}" aria-selected="{% if loop.index == 1 %}true{% else %}false{% endif %}" role="tab">{{ category.upper() }}</a>
+                </li>
+                {% endfor %}
+                <li class="nav-item" role="presentation">
+                <a class="nav-link" data-bs-toggle="tab" href="#challenge_total" aria-selected="false" role="tab">TOTAL</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-10 offset-md-1 col-sm-10 offset-sm-1 p-1">
+            {% include "challenges/challenge_table.html" %}
+        </div>
+    </div>
+</div>
+{% endblock %}

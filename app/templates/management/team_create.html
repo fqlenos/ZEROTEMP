@@ -1,0 +1,40 @@
+<div class="col-sm-12 col-md-3 p-2">
+    <div class="card p-4">
+        <div class="form-group">
+            <legend>New team</legend>
+            <form method="POST" autocomplete="on">
+                {{ form_create.csrf_token }}
+                <input type="hidden" name="form_name" value="create">
+                <div class="form-floating mt-3">
+                    {{ form_create.leader }}
+                    <label>{{ form_create.leader.label }}</label>
+                </div>
+                <div class="form-floating mt-3">
+                    {{ form_create.teamname }}
+                    <label>{{ form_create.teamname.label }}</label>
+                </div>
+                <div class="form-floating mt-3">
+                    {{ form_create.password }}
+                    <label>{{ form_create.password.label }}</label>
+                </div>
+                <div class="form-floating mt-3">
+                    {{ form_create.confirm_password }}
+                    <label>{{ form_create.confirm_password.label }}</label>
+                </div>
+                <div class="form-check form-switch mt-3">
+                    {{ form_create.team_is_hidden }}
+                    <label class="form-check-label">{{ form_create.team_is_hidden.label }}</label>
+                </div>
+                <div class="form-check form-switch mt-1">
+                    {{ form_create.team_is_active }}
+                    <label class="form-check-label">{{ form_create.team_is_active.label }}</label>
+                </div>
+                <div class="d-grid gap-1 mt-3 mb-3">
+                    <button type="submit" class="btn btn-block btn-lg btn-primary" id="btn-personal">Create team</button>
+                </div>
+                <span class="text-danger"><i>{{ error_create }}</i></span>
+                <span class="text-success"><i>{{ success_create }}</i></span>
+            </form>
+        </div>
+    </div>
+</div>

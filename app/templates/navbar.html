@@ -1,0 +1,85 @@
+<nav class="navbar navbar-expand-lg navbar-dark {% if zeroadmin %}bg-danger{% else %}bg-dark{% endif %} fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">ZEROTEMP</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#zerotempNavBar" aria-controls="zerotempNavBar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      {% if current_user.is_authenticated %}
+      <div class="collapse navbar-collapse" id="zerotempNavBar">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('challenge.index') }}">Challenges</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('user.scoreboard') }}">User Scoreboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('team.scoreboard') }}">Team Scoreboard</a>
+          </li>
+          <!--<li class="nav-item">
+            <a class="nav-link" href="/notifications">Notifications</a>
+          </li>-->
+        </ul>
+        <ul class="navbar-nav my-2 my-sm-0">
+          {% if zeroadmin %}
+          <li class="d-flex nav-item">
+            <a class="nav-link" href="{{ url_for('management.ctf') }}">CTF Mng</a>
+          </li>
+          <li class="d-flex nav-item">
+            <a class="nav-link" href="{{ url_for('management.challenge') }}">Challenge Mng</a>
+          </li>
+          <li class="d-flex nav-item">
+            <a class="nav-link" href="{{ url_for('management.user') }}">User Mng</a>
+          </li>
+          <li class="d-flex nav-item">
+            <a class="nav-link" href="{{ url_for('management.team') }}">Team Mng</a>
+          </li>
+          {% endif %}
+          <li class="d-flex nav-item">
+            <a class="nav-link" href="{{ url_for('user.user_profile', username=current_user.username) }}"><b>{{ current_user.username }}</b></a>
+          </li>
+          {% if not zeroadmin %}
+          <li class="d-flex nav-item">
+            {% if current_user.team is none %}
+            <a class="nav-link" href="{{ url_for('team.join_create') }}">Join or Create Team</a>
+            {% else %}
+            <a class="nav-link" href="{{ url_for('team.team_profile', team=current_user.team.teamname) }}"><b>{{ current_user.team.teamname }}</b></a>
+            {% endif %}
+          </li>
+          {% endif %}
+          <li class="d-flex nav-item">
+            <a class="nav-link" href="{{ url_for('main.logout') }}">Logout</a>
+          </li>
+        </ul>
+      </div>
+      {% else %}
+      <div class="collapse navbar-collapse" id="zerotempNavBar">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('user.scoreboard') }}">User Scoreboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('team.scoreboard') }}">Team Scoreboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('main.login') }}">Login</a>
+          </li>
+        </ul>
+        {% if telegram_group_link or discord_group_link %}
+        <ul class="navbar-nav my-2 my-sm-0">
+          {% if discord_group_link %}
+          <li class="nav-item">
+            <a href="{{ discord_group_link }}" class="nav-link"><img height="28" src="{{ url_for('static', filename='svg/discord-mark.svg') }}"></a>
+          </li>
+          {% endif %}
+          {% if telegram_group_link %}
+          <li class="nav-item">
+            <a href="{{ telegram_group_link }}" class="nav-link"><img height="28" src="{{ url_for('static', filename='svg/telegram.svg') }}"></a>
+          </li>
+          {% endif %}
+        </ul>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+  </nav>

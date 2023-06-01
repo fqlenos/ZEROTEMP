@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+{% include "navbar.html" %}
+{% endblock %}
+
+{% block page_title %}
+{% include "page_title.html" %}
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row d-flex justify-content-center">
+    <div class="accordion col-xl-6 col-lg-8 col-md-10 col-sm-10 col-xs-12" id="accordion">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+          <button class="accordion-button {% if not join %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+            Join Existing Team
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse {% if join %}show{% endif %}" aria-labelledby="headingOne" data-bs-parent="#accordion">
+          <div class="accordion-body">
+            <form class="form-group" method="POST">
+              <input type="hidden" name="form_id" value="join">
+              <div class="form-group">
+                <label class="form-label mt-4">Team access</label>
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="floatingInput" name="teamname" placeholder="username">
+                  <label for="floatingInput">Team Name</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="password">
+                  <label for="floatingPassword">Password</label>
+                </div>
+                <div class="d-grid gap-2 mb-1">
+                    <button class="btn btn-lg btn-outline-primary" type="submit">Join Team</button>
+                </div>
+                <span class="text-danger">{{ error }}</span>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+          <h2 class="accordion-header" id="headingThree">
+              <button class="accordion-button {% if not create %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              Create Team
+              </button>
+          </h2>
+          <div id="collapseThree" class="accordion-collapse collapse {% if create %}show{% endif %}" aria-labelledby="headingThree" data-bs-parent="#accordion">
+              <div class="accordion-body">
+                <form class="form-group" method="POST">
+                  <input type="hidden" name="form_id" value="create">
+                  <div class="form-group">
+                    <label class="form-label mt-4">Create Team</label>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="teamname" name="teamname" placeholder="Team name">
+                        <label for="teamname">Team Name</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input type="password" class="form-control" id="password1" name="password" placeholder="Password">
+                      <label for="password1">Password</label>
+                    </div>
+                      <div class="form-floating mb-3">
+                        <input type="password" class="form-control" id="password2" name="password2" placeholder="Retype Password">
+                        <label for="password2">Retype Password</label>
+                    </div>
+                    <div class="d-grid gap-2 mb-1">
+                        <button class="btn btn-lg btn-outline-primary" type="submit">Create Team</button>
+                    </div>
+                    <span class="text-danger">{{ error }}</span>
+                  </div>
+                </form>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

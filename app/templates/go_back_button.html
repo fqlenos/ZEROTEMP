@@ -1,0 +1,41 @@
+<div class="container-fluid">
+    <div class="row mt-4">
+        <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-sm-12">
+            <a href="#" id="back-to-previous-page" class="btn btn-primary">
+                <i class="fa fa-arrow-left"></i>Back
+            </a>
+            {% if is_owner and not zeroadmin %}
+            <a href="{{ url_for('user.remove', username=current_user.username) }}" id="back-to-previous-page" class="btn btn-danger float-right ml-1">
+                <i class="fa fa-arrow-left"></i>Remove your profile
+            </a>
+            <a href="{{ url_for('edit.user', user=current_user.username) }}" id="back-to-previous-page" class="btn btn-warning float-right">
+                <i class="fa fa-arrow-left"></i>Edit profile
+            </a>
+            {% endif %}
+            {% if 'team' in request.url and is_admin and not zeroadmin %}
+            <a href="{{ url_for('team.remove', teamname=current_user.team.teamname, username=current_user.username) }}" id="back-to-previous-page" class="btn btn-danger float-right ml-1">
+                <i class="fa fa-arrow-left"></i>Remove team
+            </a>
+            <a href="{{ url_for('edit.team', team=current_user.team.teamname) }}" id="back-to-previous-page" class="btn btn-warning float-right">
+                <i class="fa fa-arrow-left"></i>Edit team
+            </a>
+            {% endif %}
+            {% if zeroadmin %}
+                {% if 'user' in request.url and 'manage' not in request.url and 'edit' not in request.url %}
+                    <a href="{{ url_for('edit.user', user=username) }}" id="back-to-previous-page" class="btn btn-warning float-right">
+                        <i class="fa fa-arrow-left"></i>Edit profile
+                    </a>
+                {% elif 'team' in request.url and 'manage' not in request.url and 'edit' not in request.url %}
+                    <a href="{{ url_for('edit.team', team=teamname) }}" id="back-to-previous-page" class="btn btn-warning float-right">
+                        <i class="fa fa-arrow-left"></i>Edit team
+                    </a>
+                {% elif 'challenges' in request.url and 'manage' not in request.url and 'edit' not in request.url %}
+                    <a href="{{ url_for('edit.challenge', challenge=challengename) }}" id="back-to-previous-page" class="btn btn-warning float-right">
+                        <i class="fa fa-arrow-left"></i>Edit challenge
+                    </a>
+                {% endif %}
+
+            {% endif %}
+        </div>
+    </div>
+</div>

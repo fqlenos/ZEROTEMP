@@ -1,0 +1,1 @@
+from app.models import challenge, flag, team_challenge_link, team, user_challenge_link, user, ctf

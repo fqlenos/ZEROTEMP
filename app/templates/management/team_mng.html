@@ -1,0 +1,32 @@
+<div class="col-sm-12 col-md-3 p-2">
+    <div class="card p-4">
+        <div class="form-group">
+            <legend>Manage team</legend>
+            <form method="POST" autocomplete="on">
+                {{ form_mng.csrf_token }}
+                <input type="hidden" name="form_name" value="mng">
+                <div class="form-group">
+                    {{ form_mng.team_select.label }}
+                    {{ form_mng.team_select }}
+                </div>
+                <div class="form-check form-switch mt-3">
+                    {{ form_mng.team_is_hidden }}
+                    <label class="form-check-label">{{ form_mng.team_is_hidden.label }}</label>
+                </div>
+                <div class="form-check form-switch mt-1">
+                    {{ form_mng.team_is_active }}
+                    <label class="form-check-label">{{ form_mng.team_is_active.label }}</label>
+                </div>
+                <div class="form-floating mt-3">
+                    {{ form_mng.mng_password }}
+                    <label>{{ form_mng.mng_password.label }}</label>
+                </div>
+                <div class="d-grid gap-1 mt-3 mb-3">
+                    <button type="submit" class="btn btn-block btn-lg btn-primary" id="btn-personal">Edit team</button>
+                </div>
+                <span class="text-danger"><i>{{ error_mng }}</i></span>
+                <span class="text-success"><i>{{ success_mng }}</i></span>
+            </form>
+        </div>
+    </div>
+</div>

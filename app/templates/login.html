@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block navbar %}
+{% include "navbar.html" %}
+{% endblock %}
+
+{% block content %}
+
+<div class="accordion col-md-4 col-sm-12 mx-auto mt-4" id="accordion">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button {% if not login %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+          Login
+        </button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse {% if login %}show{% endif %}" aria-labelledby="headingOne" data-bs-parent="#accordion">
+        <div class="accordion-body">
+          <form class="form-group" method="POST" autocomplete="on">
+            <label class="form-label mt-4">Access to your account</label>
+            {{ form_login.csrf_token }}
+            <input type="hidden" name="form_name" value="login">
+            <div class="form-floating mb-3">
+              {{ form_login.login_username }}
+              {{ form_login.login_username.label }}
+            </div>
+            <div class="form-floating mb-3">
+              {{ form_login.login_password }}
+              {{ form_login.login_password.label }}
+            </div>
+            <div class="d-grid gap-1 mt-3 mb-2">
+              <button type="submit" class="btn btn-block btn-lg btn-outline-primary" id="btn-login">Login</button>
+            </div>
+            <span class="text-danger"><i>{{ error_login }}</i></span>
+          </form>
+        </div>
+      </div>
+    </div>
+    {% if ctf_active %}
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingTwo">
+        <button class="accordion-button {% if login %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Create new account
+        </button>
+      </h2>
+      <div id="collapseTwo" class="accordion-collapse collapse {% if not login %}show{% endif %}" aria-labelledby="headingTwo" data-bs-parent="#accordion">
+        <div class="accordion-body">
+          <form class="form-group" method="POST" autocomplete="on">
+            <label class="form-label mt-4">Type your username and password to create a new account</label>
+            {{ form_register.csrf_token }}
+            <input type="hidden" name="form_name" value="register">
+            <div class="form-floating mb-3">
+              {{ form_register.register_username }}
+              {{ form_register.register_username.label }}
+            </div>
+            <div class="form-floating mb-3">
+              {{ form_register.register_password }}
+              {{ form_register.register_password.label }}
+            </div>
+            <div class="form-floating mb-3">
+              {{ form_register.register_confirm_password }}
+              {{ form_register.register_confirm_password.label }}
+            </div>
+            <div class="d-grid gap-1 mt-3 mb-2">
+              <button type="submit" class="btn btn-block btn-lg btn-outline-primary" id="btn-register">Create account</button>
+            </div>
+            <span class="text-danger"><i>{{ error_register }}</i></span>
+          </form>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

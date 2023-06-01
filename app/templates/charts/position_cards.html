@@ -1,0 +1,47 @@
+{% if 'home' not in request.path %}<div class="col-sm-12 col-md-3">{% endif %}
+    {% if not 'team' in request.path %}
+    <div class="card border-light m-2" style="max-width: 20rem;">
+        <a href="{{ url_for('user.user_profile', username=username) }}" style="text-decoration: none; color: inherit;">
+            <div class="card-header">{{ username }}<span class="float-right">{{ user_score }} points</span></div>
+            <div class="card-body">
+                {% if user_position != 1 %}
+                <h3 class="card-body align-items-center d-flex justify-content-center">#{{ user_position }} of {{ users_count }}</h3>
+                {% else %}
+                <div class="d-flex flex-column align-items-center">
+                  <p><img src="{{ url_for('static', filename='svg/trophy-fill.svg') }}" style="height: 2.5em;"></p>
+                  <p>Leading the user standings!</p>
+                </div>
+                {% endif %}  
+            </div>
+        </a>
+    </div>
+    {% endif %}
+    {% if has_team %}
+    <div class="card border-light m-2" style="max-width: 20rem;">
+        <a href="{{ url_for('team.team_profile', team=teamname) }}" style="text-decoration: none; color: inherit;">
+            <div class="card-header">{{ teamname }}<span class="float-right">{{ team_score }} points</span></div>
+            <div class="card-body">
+                {% if team_position != 1 %}
+                <h3 class="card-body align-items-center d-flex justify-content-center">#{{ team_position }} of {{ teams_count }}</h3>
+                {% else %}
+                <div class="d-flex flex-column align-items-center">
+                  <p><img src="{{ url_for('static', filename='svg/trophy-fill.svg') }}" style="height: 2.5em;"></p>
+                  <p>Leading the team standings!</p>
+                </div>
+                {% endif %}  
+            </div>              
+        </a>
+    </div>
+    {% else %}
+        {% if not 'user' in request.path %}
+        <div class="card border-light m-2" style="max-width: 20rem;">
+            <a href="{{ url_for('team.join_create') }}" style="text-decoration: none; color: inherit;">
+                <div class="card-header">JOIN OR CREATE</div>
+                <div class="card-body">
+                    <h3 class="card-body align-items-center d-flex justify-content-center">TEAM</h3>
+                </div>
+            </a>
+        </div>
+        {% endif %}
+    {% endif %}
+{% if 'home' not in request.path %}</div>{% endif %}

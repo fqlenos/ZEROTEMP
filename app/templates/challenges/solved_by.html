@@ -1,0 +1,36 @@
+<hr class="mt-4" style="width: 80%; margin-left: 10%; margin-right: 10%;">
+<div class="container">
+    <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-sm-12">
+        <h5>Solved by</h5>
+    </div>
+    <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-sm-12 mt-4">
+        <table class="border border-round border-dark table table-light table-striped table-hover tab-content">
+            <thead>
+                <tr>
+                    <th data-sort="position">POSITION</th>
+                    <th data-sort="name">USERNAME</th>
+                    <th data-sort="team">TEAM NAME</th>
+                    <th data-sort="points">TOTAL POINTS</th>
+                </tr>
+            </thead>
+                <tbody class="user-tbody" role="tabpanel">
+                    {% for user in users %}
+                        {% if not user.user_is_hidden and user.user_is_active and not user.user_is_admin %}
+                            <tr class="table-active" data-target="#user_{{ user.id }}">
+                                {% if positions[user.username] != 1 and not user.user_is_banned %}
+                                <td>{{ positions[user.username] }}</td>
+                                {% elif not user.user_is_banned %}
+                                <td><img src="{{ url_for('static', filename='svg/trophy-fill.svg') }}"></td>
+                                {% else %}
+                                <td><img src="{{ url_for('static', filename='svg/ban.svg') }}"></td>
+                                {% endif %}
+                                <td>{{ user.username }}</td>
+                                <td>{{ user.team.teamname if user.team is not none else '' }}</td>
+                                <td>{{ user.score }}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+        </table>
+    </div>
+</div>

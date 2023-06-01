@@ -1,0 +1,32 @@
+<div class="col-sm-12 col-md-3">
+    <div class="card m-2">
+        <h5 class="card-header">{{ username }} {% if user_is_banned %}<span class="text-info float-right">BANNED</span>{% endif %}</h5>
+        {% if icon %}
+        <div class="card-body border-secondary">
+          <div class="icon-container">
+            <img src="{{ url_for('serve_user_img', filename=icon) }}" alt="Icon for {{username}}">
+          </div>
+        </div>
+        {% endif %}
+        {% if name or surname or email or country or birthday %}
+        <div class="card-body border-secondary">
+          {% if name or surname %}<h5 class="card-text">{{ name }} {{ surname }}</h5>{% endif %}
+          {% if email %}<p class="card-text"><img src="{{ url_for('static', filename='svg/envelope.svg') }}" style="height: 1.4em; margin-right: 0.8em;">{{ email }}</p>{% endif %}
+          {% if country %}<p class="card-text"><img src="{{ url_for('static', filename='svg/geo.svg') }}" style="height: 1.4em; margin-right: 0.8em;">{{ country }}</p>{% endif %}
+          {% if birthday %}<p class="card-text"><img src="{{ url_for('static', filename='svg/calendar-date.svg') }}" style="height: 1.4em; margin-right: 0.8em;">{{ birthday }}</p>{% endif %}
+        </div>
+        {% endif %}
+        {% if ctftime or github or webpage %}
+        <div class="card-footer">
+          {% if webpage %}<a href="{{ webpage }}" target="_blank" class="card-link"><img src="{{ url_for('static', filename='svg/window.svg') }}" style="height: 1.4em;"></a>{% endif %}
+          {% if github %}<a href="https://github.com/{{ github }}" target="_blank" class="card-link"><img src="{{ url_for('static', filename='svg/github.svg') }}" style="height: 1.4em;"></a>{% endif %}
+          {% if ctftime %}<a href="https://ctftime.org/user/{{ ctftime }}" target="_blank" class="card-link"><img src="{{ url_for('static', filename='svg/link-45deg.svg') }}" style="height: 1.4em;"></a>{% endif %}
+        </div>
+        {% endif %}
+        <div class="card-footer text-muted">
+          {% if not last_flag %}Last logged in {{ last_logged_in }}
+          {% else %}Last flag completed in {{ last_flag }}
+          {% endif %}
+        </div>
+    </div>
+</div>

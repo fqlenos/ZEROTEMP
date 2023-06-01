@@ -1,0 +1,45 @@
+{% if flag_to_download %}
+<div class="row p-3 d-flex justify-content-center">
+    <div class="card" style="text-align: center;">
+        <div class="card-body">
+            <h5 class="card-title">MultiFlag Challenges</h5>
+            <p class="card-text">Some of the multiflag challenges have <span class="text-warning">new flags</span> that you do not download yet.</p>
+            <a href="{{ url_for('api.get_new_flags') }}" target="_blank" class="btn btn-primary">Download</a>
+        </div>
+    </div>
+</div>
+{% endif %}
+<div class="row p-3 d-flex justify-content-center">
+        <div class="card" style="text-align: center;">
+            <div class="card-body">
+                <h5 class="card-title">Export data</h5>
+                <p class="card-text">For future <span class="text-warning">imports</span>, it is possible to export the CTF's challenges.</p>
+                <div class="btn-group-vertical">
+                    <a href="{{ url_for('api.get_challenges') }}" class="m-1 btn btn-primary">Export Data</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row p-3 d-flex justify-content-center">
+    <div class="col-sm-12 col-md-6">
+        <div class="card" style="text-align: center;">
+            <div class="card-body">
+                <h5 class="card-title">Import and create new challenges</h5>
+                <p class="card-text">You can import data into the platform <span class="text-warning">to populate</span> CTF's Challenges.<br><br>On the other hand, you can populate the Database with random users/teams/challenges in: <code>/populate</code><br><br><span class="text-danger">Warning! Populate removes actual data from Database.</span></p>
+                <div class="p-4">
+                    <div class="form-group">
+                        <form method="POST" enctype="multipart/form-data" action="/api/import">
+                            <input type="hidden" name="form_name" value="social">
+                            <div class="form-group">
+                                <label for="importData">Import Data</label>
+                                <input type="file" accept="application/json" id="importData" name="import">
+                                <button type="submit" class="m-1 btn btn-primary" id="btn-import">Import Data</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

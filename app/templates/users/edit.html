@@ -1,0 +1,111 @@
+<div class="col-sm-12 col-md-3">
+  <div class="card p-4">
+    <div class="form-group">
+      <legend>Personal information</legend>
+
+      <form method="POST" autocomplete="on">
+        <input type="hidden" name="form_id" value="personal">
+      
+        <div class="form-floating mt-3">
+          <input type="email" class="form-control" id="floatingEmail" value="{{ email }}" name="email">
+          <label for="floatingEmail">Email address</label>
+        </div>
+
+        <div class="form-floating mt-3">
+          <input type="text" class="form-control" id="floatingName" value="{{ name }}" name="name">
+          <label for="floatingName">Name</label>
+        </div>
+
+        <div class="form-floating mt-3">
+          <input type="text" class="form-control" id="floatingSurname" value="{{ surname }}" name="surname">
+          <label for="floatingSurname">Surname</label>
+        </div>
+
+        <div class="form-floating mt-3">
+          <input type="date" class="form-control" id="floatingBirthday" value="{{ birthday }}" name="birthday">
+          <label for="floatingBirthday">Birthday</label>
+        </div>
+
+        <div class="form-floating mt-3">
+          <input type="text" class="form-control" id="floatingCountry" value="{{ location }}" name="location">
+          <label for="floatingCountry">Location</label>
+        </div>
+
+        <div class="d-grid gap-1 mt-3">
+          <button type="submit" class="btn btn-block btn-lg btn-primary" id="btn-personal">Save personal information</button>
+        </div>       
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-12 col-md-3">
+  <div class="card p-4">
+    <div class="form-group">
+      <legend>Social Data</legend>
+
+      <form method="POST" autocomplete="on">
+        <input type="hidden" name="form_id" value="social">
+
+        <div class="form-floating mt-3">
+          <input type="number" class="form-control" id="floatingCTFtime" value="{{ ctftime }}" name="ctftime">
+          <label for="floatingCTFtime">CTFtime ID</label>
+        </div>
+
+        <div class="form-floating mt-3">
+          <input type="text" class="form-control" id="floatingGithub" value="{{ github }}" name="github">
+          <label for="floatingGithub">GitHub Username</label>
+        </div>
+
+        <div class="form-floating mt-3">
+          <input type="text" class="form-control" id="floatingWebpage" value="{{ webpage }}" name="webpage">
+          <label for="floatingWebpage">Webpage</label>
+        </div>
+
+        <div class="d-grid gap-1 mt-3">
+          <button type="submit" class="btn btn-block btn-lg btn-primary" id="btn-social">Save social data</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-12 col-md-3">
+  <div class="card p-4">
+    <div class="form-group">
+      <legend>Password update</legend>
+
+      <form method="POST" autocomplete="on">
+        <input type="hidden" name="form_id" value="updatepass">
+
+        <div class="form-floating mt-3">
+          <input type="password" class="form-control" id="floatingOldpassword" placeholder="Old password" name="oldpassword">
+          <label for="floatingOldpassword">Old Password</label>
+        </div>
+
+        <div class="form-floating mt-3">
+          <input type="password" class="form-control" id="floatingNewpassword" placeholder="New password" name="newpassword">
+          <label for="floatingNewpassword">New Password</label>
+        </div>
+        
+        <div class="form-floating mt-3">
+          <input type="password" class="form-control" id="floatingReNewpassword" placeholder="New password" name="renewpassword">
+          <label for="floatingReNewpassword">Retype New Password</label>
+        </div>
+
+        <div class="d-grid gap-1 mt-3">
+          <button type="submit" class="btn btn-block btn-lg btn-primary" id="btn-passwd">Update password</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<figure class="col-md-8 col-sm-12 text-center mt-4">
+  <blockquote class="blockquote">
+    <p class="mb-0"><i>All the information posted in these forms will be presented in your profile.</i></p>
+  </blockquote>
+  <figcaption class="blockquote-footer">
+    <cite title="Source Title">The password will never be posted</cite>
+  </figcaption>
+</figure>

@@ -1,0 +1,80 @@
+<div class="col-sm-12 col-md-3">
+    <div class="card p-4">
+      <div class="form-group">
+        <legend>Team general information</legend>
+  
+        <form method="POST" autocomplete="on">
+          <input type="hidden" name="form_id" value="general">
+
+          <div class="form-floating mt-3">
+            <input type="email" class="form-control" id="floatingEmail" value="{{ email }}" name="email">
+            <label for="floatingEmail">Team email</label>
+          </div>
+
+          <div class="form-floating mt-3">
+            <input type="text" class="form-control" id="floatingCountry" value="{{ location }}" name="location">
+            <label for="floatingCountry">Team Location</label>
+          </div>
+
+          <div class="form-floating mt-3">
+            <input type="number" class="form-control" id="floatingCTFtime" value="{{ ctftime }}" name="ctftime">
+            <label for="floatingCTFtime">Team CTFtime ID</label>
+          </div>
+  
+          <div class="form-floating mt-3">
+            <input type="text" class="form-control" id="floatingGithub" value="{{ github }}" name="github">
+            <label for="floatingGithub">Team GitHub</label>
+          </div>
+  
+          <div class="form-floating mt-3">
+            <input type="text" class="form-control" id="floatingWebpage" value="{{ webpage }}" name="webpage">
+            <label for="floatingWebpage">Team Webpage</label>
+          </div>
+  
+          <div class="d-grid gap-1 mt-3">
+            <button type="submit" class="btn btn-block btn-lg btn-primary" id="btn-personal">Post information</button>
+          </div>       
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-sm-12 col-md-3">
+    <div class="card p-4">
+      <div class="form-group">
+        <legend>Password update</legend>
+  
+        <form method="POST" autocomplete="on">
+          <input type="hidden" name="form_id" value="updatepass">
+  
+          <div class="form-floating mt-3">
+            <input type="password" class="form-control" id="floatingOldpassword" placeholder="Old password" name="oldpassword">
+            <label for="floatingOldpassword">Old Password</label>
+          </div>
+  
+          <div class="form-floating mt-3">
+            <input type="password" class="form-control" id="floatingNewpassword" placeholder="New password" name="newpassword">
+            <label for="floatingNewpassword">New Password</label>
+          </div>
+          
+          <div class="form-floating mt-3">
+            <input type="password" class="form-control" id="floatingReNewpassword" placeholder="New password" name="renewpassword">
+            <label for="floatingReNewpassword">Retype New Password</label>
+          </div>
+  
+          <div class="d-grid gap-1 mt-3">
+            <button type="submit" class="btn btn-block btn-lg btn-primary" id="btn-passwd">Update password</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <figure class="col-md-8 col-sm-12 text-center mt-4">
+    <blockquote class="blockquote">
+      <p class="mb-0"><i>All the information posted in this form will be presented in team's profile.</i></p>
+    </blockquote>
+    <figcaption class="blockquote-footer">
+      <cite title="Source Title">The password will never be posted</cite>
+    </figcaption>
+  </figure>

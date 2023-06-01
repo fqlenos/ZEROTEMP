@@ -1,0 +1,9 @@
+{% if title %}
+<div class="container-fluid">
+    <div class="row mt-4">
+        <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-sm-12">
+            <h3 {% if is_hidden %}class="text-info"{% endif %}>{{ title }}</h3>
+        </div>
+    </div>
+</div>
+{% endif %}

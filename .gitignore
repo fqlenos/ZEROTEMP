@@ -1,0 +1,16 @@
+.venv/
+.venvpy/
+.vscode/
+local_files/
+*.sqlite
+instance/
+*pycache*
+test.py
+*.db*
+.data
+*.jpeg*
+*.jpg*
+*.png*
+*.zip*
+downloads/
+uploads/

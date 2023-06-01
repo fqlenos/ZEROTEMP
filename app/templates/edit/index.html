@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+{% include "navbar.html" %}
+{% endblock %}
+
+{% block go_back %}
+{% include "go_back_button.html" %}
+{% endblock %}
+
+{% block page_title %}
+{% include "page_title.html" %}
+{% endblock %}
+
+{% block content %}
+
+{% if user %}
+<div class="container-fluid mt-4">
+    <div class="row d-flex justify-content-center">
+        {% include "users/edit.html" %}
+    </div>
+</div>
+{% elif team %}
+<div class="container-fluid mt-4">
+    <div class="row d-flex justify-content-center">
+        {% include "teams/edit.html" %}
+    </div>
+</div>
+{% else %}
+<div class="container-fluid mt-4">
+    <div class="row d-flex justify-content-center">
+        {% include "challenges/edit.html" %}
+    </div>
+</div>
+{% endif %}
+
+
+{% endblock %}

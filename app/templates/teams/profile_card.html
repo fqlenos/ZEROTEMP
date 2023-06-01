@@ -1,0 +1,52 @@
+<div class="col-sm-12 col-md-3">
+    <div class="card m-2">
+        <h5 class="card-header">{{ teamname }}</h5>
+        {% if icon %}
+        <div class="card-body border-secondary">
+          <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
+            <rect width="100%" height="100%" fill="#868e96"></rect>
+            <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image</text>
+          </svg>
+        </div>
+        {% endif %}
+        {% if email or country %}
+        <div class="card-body border-secondary">
+          {% if email %}<p class="card-text"><img src="{{ url_for('static', filename='svg/envelope.svg') }}" style="height: 1.4em; margin-right: 0.8em;">{{ email }}</p>{% endif %}
+          {% if country %}<p class="card-text"><img src="{{ url_for('static', filename='svg/geo.svg') }}" style="height: 1.4em; margin-right: 0.8em;">{{ country }}</p>{% endif %}
+        </div>
+        {% endif %}
+        {% if ctftime or github or webpage %}
+        <div class="card-footer">
+          {% if webpage %}<a href="{{ webpage }}" target="_blank" class="card-link"><img src="{{ url_for('static', filename='svg/window.svg') }}" style="height: 1.4em;"></a>{% endif %}
+          {% if github %}<a href="https://github.com/{{ github }}" target="_blank" class="card-link"><img src="{{ url_for('static', filename='svg/github.svg') }}" style="height: 1.4em;"></a>{% endif %}
+          {% if ctftime %}<a href="https://ctftime.org/user/{{ ctftime }}" target="_blank" class="card-link"><img src="{{ url_for('static', filename='svg/link-45deg.svg') }}" style="height: 1.4em;"></a>{% endif %}
+        </div>
+        {% endif %}
+    </div>
+    <ul class="list-group m-2">
+      <li class="list-group-item d-flex justify-content-between align-items-center d-flex justify-content-end"><h5>Team members</h5></li> 
+    {% for member in members %}
+      {% if not member.user_is_hidden and member.user_is_active and member.user_is_active %}
+        <a href="{{ url_for('user.user_profile', username=member.username) }}" class="list-group-item" style="text-decoration: None; color: inherit">
+          {{ member.username }}
+          {% if (is_admin and member.username != me) or zeroadmin %}<button class="btn badge bg-danger rounded-pill float-right m-1" type="button" data="{{ member.id }}" datauser="{{ member.username }}" datateam="{{ member.team.teamname }}">Kick out</button>{% endif %}
+          <span class="badge bg-primary rounded-pill float-right m-1">{{ member.score }}</span>
+          {% if leader_id == member.id %} <span class="badge bg-warning rounded-pill float-right m-1">Admin</span>{% endif %}
+        </a>
+      {% endif %}
+    {% endfor %}
+    </ul>
+</div>
+
+<script>
+  document.querySelectorAll('button[data]').forEach(
+    function(btn_kickout) {
+      btn_kickout.addEventListener('click', function() {
+      event.preventDefault(); // necessary for not clicking on <a> href
+      username = btn_kickout.getAttribute('datauser');
+      teamname = btn_kickout.getAttribute('datateam');
+      var url = "{{ url_for('team.kickout', teamname='__TEAMNAME__', username='__USERNAME__') }}".replace('__USERNAME__', username).replace('__TEAMNAME__', teamname);
+      window.location.href = url;
+    });
+  });
+</script>

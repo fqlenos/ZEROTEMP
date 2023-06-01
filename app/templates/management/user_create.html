@@ -1,0 +1,44 @@
+<div class="col-sm-12 col-md-3 p-2">
+    <div class="card p-4">
+        <div class="form-group">
+            <legend>New user</legend>
+            <form method="POST" enctype="multipart/form-data">
+                {{ form_create.csrf_token }}
+                <input type="hidden" name="form_name" value="create">
+                <div class="form-floating mt-3">
+                    {{ form_create.username }}
+                    <label>{{ form_create.username.label }}</label>
+                </div>
+                <div class="form-floating mt-3">
+                    {{ form_create.password }}
+                    <label>{{ form_create.password.label }}</label>
+                </div>
+                <div class="form-floating mt-3">
+                    {{ form_create.confirm_password }}
+                    <label>{{ form_create.confirm_password.label }}</label>
+                </div>
+                <div class="form-check form-switch mt-3">
+                    {{ form_create.user_is_hidden }}
+                    <label class="form-check-label">{{ form_create.user_is_hidden.label }}</label>
+                </div>
+                <div class="form-check form-switch mt-1">
+                    {{ form_create.user_is_active }}
+                    <label class="form-check-label">{{ form_create.user_is_active.label }}</label>
+                </div>
+                <div class="form-check form-switch mt-1">
+                    {{ form_create.user_is_admin }}
+                    <label class="form-check-label">{{ form_create.user_is_admin.label }}</label>
+                </div>
+                <div class="form-group mt-1">
+                    {{ form_create.icon.label }}
+                    {{ form_create.icon }}
+                </div>
+                <div class="d-grid gap-1 mt-3 mb-3">
+                    <button type="submit" class="btn btn-block btn-lg btn-primary" id="btn-create">Create user</button>
+                </div>
+                <span class="text-danger"><i>{{ error_create }}</i></span>
+                <span class="text-success"><i>{{ success_create }}</i></span>
+            </form>
+        </div>
+    </div>
+</div>

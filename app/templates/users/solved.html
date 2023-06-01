@@ -1,0 +1,31 @@
+<hr class="mt-4" style="width: 80%; margin-left: 10%; margin-right: 10%;">
+<div class="container">
+    <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-sm-12">
+        <h5>Solved challenges</h5>
+    </div>
+    <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-sm-12 mt-4">
+        <table class="border border-round border-dark table table-light table-striped table-hover tab-content">
+            <thead>
+                <tr>
+                    <th data-sort="name">NAME</th>
+                    <th data-sort="category">CATEGORY</th>
+                    <th data-sort="points">POINTS</th>
+                    {% if not 'user' in request.path %}<th data-sort="solves">SOLVED BY</th>{% endif %}
+                </tr>
+            </thead>
+                <tbody class="challenge-tbody" role="tabpanel">
+                    {% for challenge in challenges %}
+                        {% if not challenge.challenge_is_hidden %}
+                            {% set solved_by = solvers[challenge.name][0] %}
+                            <tr class="table-active" data-target="#challenge_{{ challenge.id }}">
+                                <td>{{ challenge.name }}</td>
+                                <td>{{ challenge.category.upper() }}</td>
+                                <td>{{ challenge.value }}</td>
+                                {% if not 'user' in request.path %}<td>{{ solved_by }}</td>{% endif %}
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+        </table>
+    </div>
+</div>
