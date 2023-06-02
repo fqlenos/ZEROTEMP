@@ -22,12 +22,11 @@ zero@temp:~# pip install -r requirements.txt
 ```
 
 ### Populate Database
-The Database is empty. You can populate it once the Flask Web App is running.
+The Database is empty.
 ```shell
-zero@temp:~# python3 zerotemp.py run -d
+zero@temp:~# python3 zerotemp.py populate --help
 zero@temp:~#
 ```  
-In the browser, search for: http://127.0.0.1:5000/populate/
 
 ## From Source
 ZEROTEMP from source deployment.
