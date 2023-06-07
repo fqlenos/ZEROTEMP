@@ -18,7 +18,7 @@ class Docker:
         console.print('[yellow]It could take a while.[/yellow]')
         subprocess.call(f'docker build -t {str(self.name).lower()} .', shell=True)
         console.print('[green]Starting ZEROTEMP[/green]')
-        subprocess.call(f'docker run -it --rm -p 5000:{PORT} --name {str(self.name).lower()} {str(self.name).lower()}', shell=True)
+        subprocess.call(f'docker run -it --rm -p {PORT}:5000 --name {str(self.name).lower()} {str(self.name).lower()}', shell=True)
     
     def stop(self):
         console.print('[yellow]This could slow down the ZEROTEMP building and starting process.[/yellow]')

@@ -8,9 +8,6 @@ instance/
 test.py
 *.db*
 .data
-*.jpeg*
-*.jpg*
-*.png*
 *.zip*
 downloads/
 uploads/
