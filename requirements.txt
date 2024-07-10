@@ -42,3 +42,4 @@ typing_extensions==4.5.0
 Werkzeug==2.3.3
 wrapt==1.15.0
 WTForms==3.0.1
+zipp>=3.19.1 # not directly required, pinned by Snyk to avoid a vulnerability
